@@ -1,0 +1,21 @@
+{
+  "name": "lennybot",
+  "version": "1.0.0",
+  "description": "Just for learning",
+  "main": "main.js",
+  "scripts": {
+    "test": "nodemon ./src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "coming soon"
+  },
+  "author": "Henry Peeples",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
+    "yt-search": "^2.7.4",
+    "ytdl-core": "^4.5.0"
+  }
+}
