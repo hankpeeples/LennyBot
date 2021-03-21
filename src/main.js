@@ -52,7 +52,11 @@ bot.on('message', msg => {
 	} else if (command === 'embed') {
 		bot.commands.get('embed').excecute(msg, args, Discord);
 	} else if (command === 'clear') {
-		bot.commands.get('clear').excecute(msg, args, Discord);
+		bot.commands.get('clear').excecute(msg, args);
+	} else if (command === 'mute') {
+		bot.commands.get('mute').excecute(msg, args);
+	} else if (command === 'unmute') {
+		bot.commands.get('unmute').excecute(msg, args);
 	}
 });
 
