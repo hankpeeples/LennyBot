@@ -25,4 +25,5 @@ module.exports = {
 			msg.channel.bulkDelete(messages);
 		});
 	}
+
 }

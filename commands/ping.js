@@ -5,4 +5,5 @@ module.exports = {
 		// code for command
 		msg.channel.send('pong!');
 	}
+
 }

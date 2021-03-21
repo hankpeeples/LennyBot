@@ -20,4 +20,5 @@ module.exports = {
 			msg.reply('Can\'t find that member!');
 		}
 	}
+
 }

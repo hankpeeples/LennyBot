@@ -10,50 +10,50 @@ const prefix = '_';
 bot.commands = new Discord.Collection();
 // make sure files being read are strictly .js files
 const commandFiles = fs.readdirSync('./commands')
-	.filter(file => file.endsWith('.js'));
+   .filter(file => file.endsWith('.js'));
 // use for loop to find correct file for given command
 for (const file of commandFiles) {
-	const command = require(`../commands/${file}`);
+   const command = require(`../commands/${file}`);
 
-	bot.commands.set(command.name, command);
+   bot.commands.set(command.name, command);
 }
 
 bot.on('ready', () => {
-	console.log("\x1b[31m%s\x1b[0m", `\n${bot.user.tag} is now online!`);
-	bot.user.setActivity('with Lenny', {
-		type: "PLAYING"
-	});
+   console.log("\x1b[31m%s\x1b[0m", `\n${bot.user.tag} is now online!`);
+   bot.user.setActivity('with Lenny', {
+      type: "PLAYING"
+   });
 });
 
 bot.on('message', msg => {
 
-	// Personal preference, just shows every message in the terminal 
-	// with some colors.
-	console.log("\n-----------------------------");
-	console.log(`User: \x1b[35m${msg.author.username}`, "\x1b[0m");
-	console.log(`Server: ${msg.guild.name}`);
-	console.log(`Channel: ${msg.channel.name}`);
-	console.log(`Message: \x1b[36m"${msg.content}"`, "\x1b[0m");
-	console.log("-----------------------------");
+   // Personal preference, just shows every message in the terminal 
+   // with some colors.
+   console.log("\n-----------------------------");
+   console.log(`User: \x1b[35m${msg.author.username}`, "\x1b[0m");
+   console.log(`Server: ${msg.guild.name}`);
+   console.log(`Channel: ${msg.channel.name}`);
+   console.log(`Message: \x1b[36m"${msg.content}"`, "\x1b[0m");
+   console.log("-----------------------------");
 
-	if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
-	const args = msg.content.slice(prefix.length).split(/ +/);
-	const command = args.shift().toLowerCase();
+   const args = msg.content.slice(prefix.length).split(/ +/);
+   const command = args.shift().toLowerCase();
 
-	if (command === 'ping') {
-		bot.commands.get('ping').excecute(msg, args);
-	} else if (command === 'youtube') {
-		bot.commands.get('youtube').excecute(msg, args);
-	} else if (command === 'embed') {
-		bot.commands.get('embed').excecute(msg, args, Discord);
-	} else if (command === 'clear') {
-		bot.commands.get('clear').excecute(msg, args);
-	} else if (command === 'mute') {
-		bot.commands.get('mute').excecute(msg, args);
-	} else if (command === 'unmute') {
-		bot.commands.get('unmute').excecute(msg, args);
-	}
+   if (command === 'ping') {
+      bot.commands.get('ping').excecute(msg, args);
+   } else if (command === 'youtube') {
+      bot.commands.get('youtube').excecute(msg, args);
+   } else if (command === 'embed') {
+      bot.commands.get('embed').excecute(msg, args, Discord);
+   } else if (command === 'clear') {
+      bot.commands.get('clear').excecute(msg, args);
+   } else if (command === 'mute') {
+      bot.commands.get('mute').excecute(msg, args);
+   } else if (command === 'unmute') {
+      bot.commands.get('unmute').excecute(msg, args);
+   }
 });
 
 bot.login(TOKEN);
