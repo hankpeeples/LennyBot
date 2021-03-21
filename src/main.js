@@ -49,8 +49,10 @@ bot.on('message', msg => {
 		bot.commands.get('ping').excecute(msg, args);
 	} else if (command === 'youtube') {
 		bot.commands.get('youtube').excecute(msg, args);
-	} else if (command == 'embed') {
+	} else if (command === 'embed') {
 		bot.commands.get('embed').excecute(msg, args, Discord);
+	} else if (command === 'clear') {
+		bot.commands.get('clear').excecute(msg, args, Discord);
 	}
 });
 
