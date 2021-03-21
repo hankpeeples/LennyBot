@@ -3,10 +3,13 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const fs = require('fs');
+const {
+	Z_BEST_SPEED
+} = require('zlib');
 
 
 const TOKEN = process.env.TOKEN;
-const prefix = '!';
+const prefix = '_';
 // Make collection for commands
 bot.commands = new Discord.Collection();
 // make sure files being read are strictly .js files
@@ -46,6 +49,8 @@ bot.on('message', msg => {
 		bot.commands.get('ping').excecute(msg, args);
 	} else if (command === 'youtube') {
 		bot.commands.get('youtube').excecute(msg, args);
+	} else if (command == 'embed') {
+		bot.commands.get('embed').excecute(msg, args, Discord);
 	}
 });
 
