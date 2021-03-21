@@ -3,10 +3,6 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const fs = require('fs');
-const {
-	Z_BEST_SPEED
-} = require('zlib');
-
 
 const TOKEN = process.env.TOKEN;
 const prefix = '_';
