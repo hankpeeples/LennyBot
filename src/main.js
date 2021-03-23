@@ -23,6 +23,13 @@ bot.on('ready', () => {
    });
 });
 
+// Simple new member message
+bot.on('guildMemberAdd', guildMember => {
+   let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'test');
+   guildMember.roles.add(welcomeRole);
+   guildMember.guild.channels.cache.get('706588663747969107').send(`Welcome <@${guildMember.user.id}>! For a list of my commands type **${prefix}help**!`);
+});
+
 bot.on('message', msg => {
 
    // Personal preference, just shows every message in the terminal 
