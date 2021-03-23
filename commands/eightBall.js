@@ -5,7 +5,7 @@ const {
 module.exports = {
    name: 'eightBall',
    description: 'Asks a question and let the bot determine your fate :sparkler:',
-   async execute(msg, args) {
+   async run(msg, args) {
       // return if no question is asked
       if (!args[0]) return msg.channel.send('Please ask a full question!');
       // random responses

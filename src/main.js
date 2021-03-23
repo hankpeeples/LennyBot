@@ -49,9 +49,9 @@ bot.on('message', msg => {
    const command = args.shift().toLowerCase();
 
    if (command === 'clear') {
-      bot.commands.get('clear').excecute(msg, args);
+      bot.commands.get('clear').run(msg, args);
    } else if (command === '8ball') {
-      bot.commands.get('eightBall').execute(msg, args);
+      bot.commands.get('eightBall').run(msg, args);
    }
 });
 
