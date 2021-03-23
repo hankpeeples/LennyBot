@@ -5,16 +5,14 @@ const bot = new Discord.Client();
 const fs = require('fs');
 
 const TOKEN = process.env.TOKEN;
-const prefix = '_';
+const prefix = '#';
 // Make collection for commands
 bot.commands = new Discord.Collection();
 // make sure files being read are strictly .js files
-const commandFiles = fs.readdirSync('./commands')
-   .filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 // use for loop to find correct file for given command
 for (const file of commandFiles) {
    const command = require(`../commands/${file}`);
-
    bot.commands.set(command.name, command);
 }
 
@@ -41,11 +39,7 @@ bot.on('message', msg => {
    const args = msg.content.slice(prefix.length).split(/ +/);
    const command = args.shift().toLowerCase();
 
-   if (command === 'ping') {
-      bot.commands.get('ping').excecute(msg, args);
-   } else if (command === 'youtube') {
-      bot.commands.get('youtube').excecute(msg, args);
-   } else if (command === 'embed') {
+   if (command === 'embed') {
       bot.commands.get('embed').excecute(msg, args, Discord);
    } else if (command === 'clear') {
       bot.commands.get('clear').excecute(msg, args);
