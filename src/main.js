@@ -3,9 +3,10 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const fs = require('fs');
-
 const TOKEN = process.env.TOKEN;
 const prefix = '#';
+const memberCounter = require('../counters/member-counter');
+
 // Make collection for commands
 bot.commands = new Discord.Collection();
 // make sure files being read are strictly .js files
@@ -21,6 +22,7 @@ bot.on('ready', () => {
    bot.user.setActivity('with Lenny', {
       type: "PLAYING"
    });
+   memberCounter(bot);
 });
 
 // Simple new member message
