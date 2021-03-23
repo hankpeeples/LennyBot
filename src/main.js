@@ -50,6 +50,8 @@ bot.on('message', msg => {
 
    if (command === 'clear') {
       bot.commands.get('clear').excecute(msg, args);
+   } else if (command === '8ball') {
+      bot.commands.get('eightBall').execute(msg, args);
    }
 });
 
