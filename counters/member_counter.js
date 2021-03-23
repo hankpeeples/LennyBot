@@ -1,7 +1,7 @@
 // counts number of server members every 5 minutes and adds the number to the voice channel name
-module.exports = async (bot) => {
+module.exports = async (client) => {
    // guild
-   const guild = bot.guilds.cache.get('706588663747969104');
+   const guild = client.guilds.cache.get('706588663747969104');
    setInterval(() => {
       const memberCount = guild.memberCount;
       // get voice channel

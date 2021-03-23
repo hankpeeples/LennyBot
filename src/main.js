@@ -1,38 +1,38 @@
 require('dotenv').config();
 
 const Discord = require('discord.js');
-const bot = new Discord.Client();
+const client = new Discord.Client();
 const fs = require('fs');
 const TOKEN = process.env.TOKEN;
 const prefix = '#';
-const memberCounter = require('../counters/member-counter');
+const memberCounter = require('../counters/member_counter');
 
 // Make collection for commands
-bot.commands = new Discord.Collection();
+client.commands = new Discord.Collection();
 // make sure files being read are strictly .js files
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 // use for loop to find correct file for given command
 for (const file of commandFiles) {
    const command = require(`../commands/${file}`);
-   bot.commands.set(command.name, command);
+   client.commands.set(command.name, command);
 }
 
-bot.on('ready', () => {
-   console.log("\x1b[31m%s\x1b[0m", `\n${bot.user.tag} is now online!`);
-   bot.user.setActivity('with Lenny', {
+client.on('ready', () => {
+   console.log("\x1b[31m%s\x1b[0m", `\n${client.user.tag} is now online!`);
+   client.user.setActivity('with Lenny', {
       type: "PLAYING"
    });
-   memberCounter(bot);
+   memberCounter(client);
 });
 
 // Simple new member message
-bot.on('guildMemberAdd', guildMember => {
+client.on('guildMemberAdd', guildMember => {
    let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'test');
    guildMember.roles.add(welcomeRole);
    guildMember.guild.channels.cache.get('706588663747969107').send(`Welcome <@${guildMember.user.id}>! For a list of my commands type **${prefix}help**!`);
 });
 
-bot.on('message', msg => {
+client.on('message', msg => {
 
    // Personal preference, just shows every message in the terminal 
    // with some colors.
@@ -49,10 +49,10 @@ bot.on('message', msg => {
    const command = args.shift().toLowerCase();
 
    if (command === 'clear') {
-      bot.commands.get('clear').run(msg, args);
+      client.commands.get('clear').run(msg, args);
    } else if (command === '8ball') {
-      bot.commands.get('eightBall').run(msg, args);
+      client.commands.get('eightBall').run(msg, args);
    }
 });
 
-bot.login(TOKEN);
+client.login(TOKEN);
