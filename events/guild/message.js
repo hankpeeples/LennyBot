@@ -16,7 +16,6 @@ module.exports = (Discord, client, message) => {
     const cmd = args.shift().toLowerCase();
 
     const command = client.commands.get(cmd);
-    console.log(command);
 
     if (command) command.run(client, args, message, Discord);
 }
