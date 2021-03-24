@@ -9,33 +9,33 @@ module.exports = {
     aliases: ['p', 'play', 'minecraft'],
     description: 'play music from youtube',
     async run(client, args, cmd, message, Discord) {
+
+        //Checking for the voicechannel and permissions (you can add more permissions if you like).
         const voice_channel = message.member.voice.channel;
-        if (!voice_channel) return message.reply('You need to be in a voice channel to use this command!');
-
-        // get user permissions
+        if (!voice_channel) return message.channel.send('You need to be in a channel to execute this command!');
         const permissions = voice_channel.permissionsFor(message.client.user);
-        // not allowed to connect to vc
-        if (!permissions.has('CONNECT')) return message.reply('You don\'t have the correct permissions!');
-        if (!permissions.has('SPEAK')) return message.reply('You don\'t have the correct permissions!');
+        if (!permissions.has('CONNECT')) return message.channel.send('You dont have the correct permissins');
+        if (!permissions.has('SPEAK')) return message.channel.send('You dont have the correct permissins');
 
+        //This is our server queue. We are getting this server queue from the global queue.
         const server_queue = queue.get(message.guild.id);
 
+        //If the user has used the play command
         if (cmd === 'play') {
-            if (!args.length) return message.reply('You need to give me a song to search!');
+            if (!args.length) return message.channel.send('You need to send the second argument!');
             let song = {};
 
-            // check if args is link or keywords
+            //If the first argument is a link. Set the song object to have two keys. Title and URl.
             if (ytdl.validateURL(args[0])) {
                 const song_info = await ytdl.getInfo(args[0]);
                 song = {
                     title: song_info.videoDetails.title,
-                    url: song_info.videoDetails.url
+                    url: song_info.videoDetails.video_url
                 }
             } else {
-                // if not URL use keywords
+                //If there was no link, we use keywords to search for a video. Set the song object to have two keys. Title and URl.
                 const video_finder = async (query) => {
                     const video_result = await ytSearch(query);
-                    // if more than one result get the first one
                     return (video_result.videos.length > 1) ? video_result.videos[0] : null;
                 }
 
@@ -46,74 +46,77 @@ module.exports = {
                         url: video.url
                     }
                 } else {
-                    message.reply('Error finding video.');
+                    message.channel.send('Error finding video.');
                 }
             }
-            // if no server queue yet
+
+            //If the server queue does not exist (which doesn't for the first video queued) then create a constructor to be added to our global queue.
             if (!server_queue) {
+
                 const queue_constructor = {
                     voice_channel: voice_channel,
                     text_channel: message.channel,
                     connection: null,
                     songs: []
                 }
+
+                //Add our key and value pair into the global queue. We then use this to get our server queue.
                 queue.set(message.guild.id, queue_constructor);
                 queue_constructor.songs.push(song);
 
+                //Establish a connection and play the song with the vide_player function.
                 try {
                     const connection = await voice_channel.join();
                     queue_constructor.connection = connection;
-                    // play songs
                     video_player(message.guild, queue_constructor.songs[0]);
                 } catch (err) {
                     queue.delete(message.guild.id);
-                    message.channel.send('I am having trouble connecting!');
+                    message.channel.send('There was an error connecting!');
                     throw err;
                 }
             } else {
-                // if there is a server queue already
                 server_queue.songs.push(song);
-                return message.channel.send(`:thumbsup: **${song.title}** added to the queue!`);
+                return message.channel.send(`👍 **${song.title}** added to queue!`);
             }
         } else if (cmd === 'skip') skip_song(message, server_queue);
         else if (cmd === 'stop') stop_song(message, server_queue);
     }
+
 }
 
 const video_player = async (guild, song) => {
     const song_queue = queue.get(guild.id);
-    // if queue is empty
+
+    //If no song is left in the server queue. Leave the voice channel and delete the key and value pair from the global queue.
     if (!song) {
         song_queue.voice_channel.leave();
         queue.delete(guild.id);
         return;
     }
-
     const stream = ytdl(song.url, {
         filter: 'audioonly'
     });
-
     song_queue.connection.play(stream, {
-        seek: 0,
-        volume: 0.5
-    }).on('finish', () => {
-        song_queue.songs.shift();
-        video_player(guild, song_queue.songs[0]);
-    });
-
-    await song_queue.text_channel.send(`:musical_note: Now playing **${song.title}**`);
+            seek: 0,
+            volume: 0.5
+        })
+        .on('finish', () => {
+            song_queue.songs.shift();
+            video_player(guild, song_queue.songs[0]);
+        });
+    await song_queue.text_channel.send(`🎶 Now playing **${song.title}**`)
 }
 
 const skip_song = (message, server_queue) => {
-    if (!message.member.voice.channel) return message.reply('You need to be in a voice channel to use this command!');
+    if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this command!');
     if (!server_queue) {
-        return message.reply('There are no songs in the queue!');
+        return message.channel.send(`There are no songs in queue 😔`);
     }
     server_queue.connection.dispatcher.end();
 }
 
 const stop_song = (message, server_queue) => {
-    if (!message.member.voice.channel) return message.reply('You need to be in a voice channel to use this command!');
+    if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this command!');
     server_queue.songs = [];
     server_queue.connection.dispatcher.end();
 }
