@@ -4,8 +4,9 @@ const {
 
 module.exports = {
     name: '8ball',
+    aliases: ['8ball'],
     description: 'Asks a question and let the bot determine your fate :sparkler:',
-    async run(client, args, message) {
+    async run(client, args, cmd, message) {
         // return if no question is asked
         if (!args[0]) return message.channel.send('Please ask a full question!');
         // random responses

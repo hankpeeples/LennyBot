@@ -1,7 +1,8 @@
 module.exports = {
     name: 'clear',
+    aliases: ['clear'],
     description: "Clear specified number of chat messages.",
-    async run(client, args, message) {
+    async run(client, args, cmd, message) {
         // if no number was given
         if (!args[0]) {
             return message.reply('Please enter the amount of messages you want to clear.');
