@@ -18,5 +18,10 @@ module.exports = (Discord, client, message) => {
 
     const command = client.commands.get(cmd);
 
-    if (command) command.run(client, args, message, Discord);
+    try {
+        if (command) command.run(client, args, message, Discord);
+    } catch (err) {
+        message.reply('There was an error trying to execute the command!');
+        console.log(err);
+    }
 }
