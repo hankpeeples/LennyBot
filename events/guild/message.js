@@ -1,6 +1,7 @@
-module.exports = (Discord, client, message) => {
-    const prefix = '#';
+require('dotenv').config();
+const PREFIX = process.env.PREFIX;
 
+module.exports = (Discord, client, message) => {
     // Personal preference, just shows every message in the terminal 
     // with some colors.
     console.log("\n-----------------------------");
@@ -10,9 +11,9 @@ module.exports = (Discord, client, message) => {
     console.log(`Message: \x1b[36m"${message.content}"`, "\x1b[0m");
     console.log("-----------------------------");
 
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if (!message.content.startsWith(PREFIX) || message.author.bot) return;
 
-    const args = message.content.slice(prefix.length).split(/ +/);
+    const args = message.content.slice(PREFIX.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
 
     const command = client.commands.get(cmd);
