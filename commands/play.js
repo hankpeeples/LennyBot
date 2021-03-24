@@ -6,7 +6,7 @@ const queue = new Map();
 
 module.exports = {
     name: 'play',
-    aliases: ['p', 'play', 'minecraft'],
+    aliases: ['stop', 'play'],
     description: 'play music from youtube',
     async run(client, args, cmd, message, Discord) {
 
@@ -81,7 +81,6 @@ module.exports = {
         } else if (cmd === 'skip') skip_song(message, server_queue);
         else if (cmd === 'stop') stop_song(message, server_queue);
     }
-
 }
 
 const video_player = async (guild, song) => {
@@ -116,7 +115,12 @@ const skip_song = (message, server_queue) => {
 }
 
 const stop_song = (message, server_queue) => {
-    if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this command!');
-    server_queue.songs = [];
-    server_queue.connection.dispatcher.end();
+    try {
+        if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this command!');
+        server_queue.songs = [];
+        server_queue.connection.dispatcher.end();
+    } catch (err) {
+        message.reply('Can\'t use this command if the bot isn\'t playing music!');
+        console.log(err);
+    }
 }
