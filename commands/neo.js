@@ -20,20 +20,29 @@ module.exports = {
             return res.json();
         }).then(data => {
             var neo = data.near_earth_objects[Object.keys(data.near_earth_objects)[0]];
-            console.log(neo);
+            var count = 0;
+            var pot_haz = 2;
+            // search for potentially hazardous == true
+            for (var i = 0; i < data.element_count; i++) {
+                if (neo[i].is_potentially_hazardous_asteroid) {
+                    pot_haz = i;
+                    count++;
+                    console.log('Found a potentially hazardous asteroid!');
+                }
+            }
             const neoEmbed = new MessageEmbed()
                 .setColor('BLUE')
                 .setTitle(':rock: Today\'s Near Earth Objects (NEO)')
-                .setDescription(`There are ${data.element_count} NEO's today!`)
+                .setDescription(`There are **${data.element_count}** NEO's today! I am only showing **3** of them, sorry!\n\n:exclamation: **${count}** potentially hazardous NEO's! :exclamation:`)
                 .addField('Asteroid Name', neo[0].name, true)
-                .addField('Distance from Earth', neo[0].close_approach_data[0].miss_distance.miles, true)
+                .addField('Distance from Earth (miles)', neo[0].close_approach_data[0].miss_distance.miles, true)
                 .addField('Potentially Hazardous', neo[0].is_potentially_hazardous_asteroid, true)
                 .addField('Asteroid Name', neo[1].name, true)
-                .addField('Distance from Earth', neo[1].close_approach_data[0].miss_distance.miles, true)
+                .addField('Distance from Earth (miles)', neo[1].close_approach_data[0].miss_distance.miles, true)
                 .addField('Potentially Hazardous', neo[1].is_potentially_hazardous_asteroid, true)
-                .addField('Asteroid Name', neo[2].name, true)
-                .addField('Distance from Earth', neo[2].close_approach_data[0].miss_distance.miles, true)
-                .addField('Potentially Hazardous', neo[2].is_potentially_hazardous_asteroid, true)
+                .addField('Asteroid Name', neo[pot_haz].name, true)
+                .addField('Distance from Earth (miles)', neo[pot_haz].close_approach_data[0].miss_distance.miles, true)
+                .addField('Potentially Hazardous', neo[pot_haz].is_potentially_hazardous_asteroid, true)
                 .setTimestamp(new Date())
                 .setFooter("© Timmy's Brain", "https://cdn.discordapp.com/avatars/595507806782619658/270520317e83454379f18cea01fa76bc.png?size=2048");
             message.channel.send(neoEmbed);
