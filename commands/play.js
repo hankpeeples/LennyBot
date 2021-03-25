@@ -1,5 +1,8 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
+const {
+    MessageEmbed
+} = require('discord.js');
 
 // create queue map
 const queue = new Map();
@@ -30,7 +33,10 @@ module.exports = {
                 const song_info = await ytdl.getInfo(args[0]);
                 song = {
                     title: song_info.videoDetails.title,
-                    url: song_info.videoDetails.video_url
+                    url: song_info.videoDetails.video_url,
+                    image: song_info.videoDetails.thumbnails[3].url,
+                    timestamp: song_info.videoDetails.lengthSeconds, // idk how to swap to m:ss
+                    views: song_info.videoDetails.viewCount.toLocaleString() // doesn't put commas in number?
                 }
             } else {
                 //If there was no link, we use keywords to search for a video. Set the song object to have two keys. Title and URl.
@@ -43,7 +49,10 @@ module.exports = {
                 if (video) {
                     song = {
                         title: video.title,
-                        url: video.url
+                        url: video.url,
+                        image: video.image,
+                        timestamp: video.timestamp,
+                        views: video.views.toLocaleString()
                     }
                 } else {
                     message.channel.send('Error finding video.');
@@ -71,7 +80,7 @@ module.exports = {
                     video_player(message.guild, queue_constructor.songs[0]);
                 } catch (err) {
                     queue.delete(message.guild.id);
-                    message.channel.send('There was an error connecting!');
+                    message.channel.send('There was an error connecting! :sad:');
                     throw err;
                 }
             } else {
@@ -96,18 +105,26 @@ const video_player = async (guild, song) => {
         filter: 'audioonly'
     });
     song_queue.connection.play(stream, {
-            seek: 0,
-            volume: 0.5
-        })
-        .on('finish', () => {
-            song_queue.songs.shift();
-            video_player(guild, song_queue.songs[0]);
-        });
-    await song_queue.text_channel.send(`🎶 Now playing **${song.title}**`)
+        seek: 0,
+        volume: 0.5
+    }).on('finish', () => {
+        song_queue.songs.shift();
+        // play next song in queue
+        video_player(guild, song_queue.songs[0]);
+    });
+    const nowPlaying = new MessageEmbed()
+        .setColor('ORANGE')
+        .setDescription(`🎶 Now playing **${song.title}**`)
+        .addField('Total Views :eyes:', song.views, true)
+        .addField('Length :stopwatch:', song.timestamp, true)
+        .setImage(song.image)
+        .setTimestamp(new Date())
+        .setFooter("© Henry's Brain", "https://cdn.discordapp.com/avatars/595507806782619658/270520317e83454379f18cea01fa76bc.png?size=2048");
+    await song_queue.text_channel.send(nowPlaying);
 }
 
 const skip_song = (message, server_queue) => {
-    if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this command!');
+    if (!message.member.voice.channel) return message.channel.send('You need to be in a voice channel to execute this command!');
     if (!server_queue) {
         return message.channel.send(`There are no songs in queue 😔`);
     }
@@ -116,7 +133,7 @@ const skip_song = (message, server_queue) => {
 
 const stop_song = (message, server_queue) => {
     try {
-        if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this command!');
+        if (!message.member.voice.channel) return message.channel.send('You need to be in a voice channel to execute this command!');
         server_queue.songs = [];
         server_queue.connection.dispatcher.end();
     } catch (err) {
