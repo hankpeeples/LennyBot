@@ -13,7 +13,6 @@ module.exports = {
         message.channel.send('Getting your meme... :thought_balloon:');
         const sub = 'terriblefacebookmemes';
         meme(sub).then(meme => {
-            console.log(meme)
             const memeEmbed = new MessageEmbed()
                 .setColor('#845ec2')
                 .setAuthor(`r/${meme.subreddit}`)
