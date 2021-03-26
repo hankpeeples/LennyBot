@@ -14,7 +14,7 @@ module.exports = (Discord, client) => {
             "with gabriel",
             "with henry",
             "with lenny",
-            "innapropriate things"
+            "inappropriate things"
         ];
         let randomStatus = status[Math.floor(Math.random() * status.length)];
         client.user.setActivity(randomStatus, {

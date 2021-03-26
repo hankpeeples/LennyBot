@@ -31,18 +31,23 @@ module.exports = {
                     console.log('Found a potentially hazardous asteroid!');
                 }
             }
+            // round to 2 decimal places
+            const neoD1 = Math.round(neo[0].close_approach_data[0].miss_distance.miles * 100) / 100;
+            const neoD2 = Math.round(neo[1].close_approach_data[0].miss_distance.miles * 100) / 100;
+            const neoD3 = Math.round(neo[pot_haz].close_approach_data[0].miss_distance.miles * 100) / 100;
+            // embed
             const neoEmbed = new MessageEmbed()
                 .setColor('BLUE')
                 .setTitle(':rock: Today\'s Near Earth Objects (NEO)')
                 .setDescription(`There are **${data.element_count}** NEO's today! I am only showing **3** of them, sorry!\n\n:exclamation: **${count}** potentially hazardous NEO's! :exclamation:`)
                 .addField('Asteroid Name', neo[0].name, true)
-                .addField('Distance from Earth (miles)', neo[0].close_approach_data[0].miss_distance.miles, true)
+                .addField('Distance from Earth (miles)', neoD1, true)
                 .addField('Potentially Hazardous', neo[0].is_potentially_hazardous_asteroid, true)
                 .addField('Asteroid Name', neo[1].name, true)
-                .addField('Distance from Earth (miles)', neo[1].close_approach_data[0].miss_distance.miles, true)
+                .addField('Distance from Earth (miles)', neoD2, true)
                 .addField('Potentially Hazardous', neo[1].is_potentially_hazardous_asteroid, true)
                 .addField('Asteroid Name', neo[pot_haz].name, true)
-                .addField('Distance from Earth (miles)', neo[pot_haz].close_approach_data[0].miss_distance.miles, true)
+                .addField('Distance from Earth (miles)', neoD3, true)
                 .addField('Potentially Hazardous', neo[pot_haz].is_potentially_hazardous_asteroid, true)
                 .setTimestamp(new Date())
                 .setFooter("© Timmy's Brain", "https://cdn.discordapp.com/avatars/595507806782619658/270520317e83454379f18cea01fa76bc.png?size=2048");
