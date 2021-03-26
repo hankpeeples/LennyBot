@@ -8,6 +8,7 @@ const {
 module.exports = {
     name: 'meme',
     aliases: ['meme pls'],
+    permissions: [],
     description: "Grab meme from reddit",
     async run(client, args, cmd, message) {
         message.channel.send('Getting your meme... :thought_balloon:');

@@ -10,6 +10,7 @@ const queue = new Map();
 module.exports = {
     name: 'play',
     aliases: ['stop', 'play'],
+    permissions: [],
     description: 'play music from youtube',
     async run(client, args, cmd, message, Discord) {
 

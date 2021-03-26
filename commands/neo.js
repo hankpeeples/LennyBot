@@ -8,6 +8,7 @@ const NASA_API = process.env.NASA_API;
 module.exports = {
     name: 'neo',
     aliases: ['neo'],
+    permissions: [],
     description: "Near Earth Object",
     async run(client, args, cmd, message) {
         // get current date

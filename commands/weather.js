@@ -9,6 +9,7 @@ const PREFIX = process.env.PREFIX;
 module.exports = {
     name: 'weather',
     aliases: ['weather'],
+    permissions: [],
     description: "Gives you weather for desired location",
     async run(client, args, cmd, message) {
         var city = args.join(' ');

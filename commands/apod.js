@@ -8,6 +8,7 @@ const NASA_API = process.env.NASA_API;
 module.exports = {
     name: 'apod',
     aliases: ['apod'],
+    permissions: [],
     description: "Show the Astronomy Picture of the Day from NASA API",
     async run(client, args, cmd, message) {
         fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API}`).then(res => {
