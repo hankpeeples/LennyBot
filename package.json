@@ -4,11 +4,11 @@
   "description": "Just for learning",
   "main": "main.js",
   "scripts": {
-    "test": "nodemon ./src/main.js"
+    "test": "nodemon main.js"
   },
   "repository": {
     "type": "git",
-    "url": "coming soon"
+    "url": "https://github.com/hankpeeples/LennyBot"
   },
   "author": "Henry Peeples",
   "license": "ISC",
@@ -20,7 +20,6 @@
     "fs": "0.0.1-security",
     "insult-compliment": "^1.1.4",
     "memejs": "^2.0.1",
-    "minecraft-server-util": "^3.4.4",
     "node-fetch": "^2.6.1",
     "yt-search": "^2.7.5",
     "ytdl-core": "^4.5.0"
