@@ -8,15 +8,8 @@ const NASA_API = process.env.NASA_API;
 module.exports = {
     name: 'mws',
     aliases: ['mws', 'marsweather'],
-    description: "Mars weather service",
+    description: "Mars 'weather' service",
     async run(client, args, cmd, message) {
-        // get current date
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0');
-        var yyyy = today.getFullYear();
-        today = yyyy + '-' + mm + '-' + dd;
-
         fetch(`https://api.nasa.gov/insight_weather/?api_key=${NASA_API}&feedtype=json&ver=1.0`).then(res => {
             return res.json();
         }).then(data => {
