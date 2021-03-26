@@ -18,18 +18,18 @@ module.exports = {
             return res.json();
         }).then(weather => {
             if (weather.cod == '404')
-                return message.reply(`${city} does not exist or there is no info available.`);
+                return message.reply(`${city} is not a valid city or there is no info available.`);
 
             var date = new Date(weather.dt * 1000).toLocaleDateString();
             const weatherEmbed = new MessageEmbed()
                 .setColor('#64dfdf')
                 .setAuthor('Courtesy of OpenWeatherMap')
-                .setTitle(`🌞 Weather for ${weather.name}`)
-                .setDescription(`**${weather.sys.country} -- ${date}**`)
+                .setTitle(`🌞 Weather for ${weather.name}, ${weather.sys.country}`)
+                .setDescription(`**${date}**`)
                 .setThumbnail(client.user.avatarURL('png'))
                 .addField(
                     '⛅ Forecast',
-                    `${weather.weather[0].main} || ${weather.weather[0].description}`)
+                    `${weather.weather[0].main}`)
                 .addField(
                     '🌡️ Temperature',
                     `${(Math.round(((weather.main.temp - 273.15) * 9 / 5 + 32)))}° F`, true)
@@ -43,7 +43,7 @@ module.exports = {
                     '🌬️ Wind Speed',
                     `${weather.wind.speed} mph`)
                 .setTimestamp(new Date())
-                .setFooter("© Henry's Brain", "https://cdn.discordapp.com/avatars/595507806782619658/270520317e83454379f18cea01fa76bc.png?size=2048");
+                .setFooter(`Weather requested by ${message.author.username}`, message.author.avatarURL());
             message.channel.send(weatherEmbed);
         });
     }
