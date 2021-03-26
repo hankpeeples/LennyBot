@@ -1,6 +1,7 @@
 module.exports = {
     name: 'clear',
     aliases: ['clear'],
+    permissions: ["ADMINISTRATOR", "MANAGE_MESSAGES"],
     description: "Clear specified number of chat messages.",
     async run(client, args, cmd, message) {
         // if no number was given
