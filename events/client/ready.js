@@ -9,12 +9,11 @@ module.exports = (Discord, client) => {
         console.log("\nChanging status!");
         const status = [
             "with your feelings",
-            "with perry",
-            "with griffen",
-            "with gabriel",
-            "with henry",
-            "with lenny",
-            "with inappropriate things"
+            "with perry ;)",
+            "with griffen :(",
+            "with gabriel :|",
+            "with henry :P",
+            "with lenny (ツ)"
         ];
         let randomStatus = status[Math.floor(Math.random() * status.length)];
         client.user.setActivity(randomStatus, {

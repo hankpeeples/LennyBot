@@ -27,6 +27,9 @@ module.exports = (Discord, client, message) => {
 
     const command = client.commands.get(cmd) || client.commands.find(a => a.aliases && a.aliases.includes(cmd));
 
+    // catch invalid commands 
+    if (command === undefined) return message.reply(`\`${PREFIX}${cmd}\` is not a command! Use \`${PREFIX}help\` for avaliable commands!`);
+
     // checking permissions
     const validPermissions = [
         "CREATE_INSTANT_INVITE",
