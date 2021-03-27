@@ -1,7 +1,17 @@
 require('dotenv').config();
+const profileModel = require('../../models/profileSchema');
 const PREFIX = process.env.PREFIX;
 
-module.exports = (Discord, client, guildMember) => {
+module.exports = async (Discord, client, guildMember) => {
+    // create user DB profile
+    let profile = await profileModel.create({
+        userID: guildMember.id,
+        serverID: guildMember.guild.id,
+        coins: 1000,
+        bank: 0
+    });
+    profile.save();
+    // welcome role/message
     let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'test');
     guildMember.roles.add(welcomeRole);
     guildMember.guild.channels.cache.get('706588663747969107').send(`Welcome <@${guildMember.user.id}>! For a list of my commands type **${PREFIX}help**!`);

@@ -1,7 +1,8 @@
 require('dotenv').config();
+const profileModel = require('../../models/profileSchema');
 const PREFIX = process.env.PREFIX;
 
-module.exports = (Discord, client, message) => {
+module.exports = async (Discord, client, message) => {
     // Personal preference, just shows every message in the terminal 
     // with some colors.
     console.log("\n-----------------------------");
@@ -21,6 +22,25 @@ module.exports = (Discord, client, message) => {
     // End of funny stuff
 
     if (!message.content.startsWith(PREFIX) || message.author.bot) return;
+
+    // check if member has a DB profile / create one
+    let profileData;
+    try {
+        profileData = await profileModel.findOne({
+            userID: message.author.id
+        });
+        if (!profileData) {
+            let profile = await profileModel.create({
+                userID: message.author.id,
+                serverID: message.guild.id,
+                coins: 1000,
+                bank: 0
+            });
+            profile.save();
+        }
+    } catch (err) {
+        console.log(err);
+    }
 
     const args = message.content.slice(PREFIX.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
