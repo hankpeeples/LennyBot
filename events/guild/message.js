@@ -28,7 +28,12 @@ module.exports = (Discord, client, message) => {
     const command = client.commands.get(cmd) || client.commands.find(a => a.aliases && a.aliases.includes(cmd));
 
     // catch invalid commands 
-    if (command === undefined) return message.reply(`\`${PREFIX}${cmd}\` is not a command! Use \`${PREFIX}help\` for avaliable commands!`);
+    if (command === undefined) {
+        const notCommand = new Discord.MessageEmbed()
+            .setColor('RED')
+            .addField('(╯°□°）╯︵ ┻━┻', `:exclamation: \`${PREFIX}${cmd}\` is not a command! Use \`${PREFIX}help\` for avaliable commands!`);
+        return message.channel.send(notCommand);
+    }
 
     // checking permissions
     const validPermissions = [
