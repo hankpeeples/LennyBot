@@ -23,6 +23,7 @@ mongoose.connect(MONGODB_SRV, {
     console.log('Database connected!');
 }).catch(err => {
     console.log(err);
+    console.log('MongoDB failed to connect!');
 });
 
 client.login(TOKEN);
