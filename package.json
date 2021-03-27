@@ -20,6 +20,7 @@
     "fs": "0.0.1-security",
     "insult-compliment": "^1.1.4",
     "memejs": "^2.0.1",
+    "mongoose": "^5.12.2",
     "node-fetch": "^2.6.1",
     "yt-search": "^2.7.5",
     "ytdl-core": "^4.5.0"
