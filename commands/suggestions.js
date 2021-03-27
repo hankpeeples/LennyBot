@@ -4,7 +4,7 @@ module.exports = {
     permissions: [],
     description: 'creates a suggestion',
     run(client, args, cmd, message, discord) {
-        const channel = message.guild.channels.cache.find(c => c.name === 'suggestions');
+        const channel = message.guild.channels.cache.find(c => c.name === 'bot-suggestions');
         if (!channel) return message.channel.send('Suggestions channel does not exist!');
 
         let messageArgs = args.join(' ');
