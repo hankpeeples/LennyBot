@@ -4,11 +4,16 @@
   "description": "Just for learning",
   "main": "main.js",
   "scripts": {
-    "test": "nodemon main.js"
+    "test": "nodemon main.js",
+    "start": "node main.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/hankpeeples/LennyBot"
+  },
+  "engines": {
+    "node": "14.15.5",
+    "npm": "*"
   },
   "author": "Henry Peeples",
   "license": "ISC",
