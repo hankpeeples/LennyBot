@@ -7,11 +7,9 @@ module.exports = {
     description: 'Displays user info',
     run(client, args, cmd, message, discord) {
         const member = message.mentions.members.last() || message.member;
-        console.log("» MEMBER\n", member);
         const roles = member.roles.cache.sort((a, b) => b.position - a.position)
             .map(role => role.toString())
             .slice(0, -1);
-        console.log("» ROLES\n", roles);
 
         const info = new discord.MessageEmbed()
             .setColor('YELLOW')
