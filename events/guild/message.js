@@ -3,23 +3,11 @@ const profileModel = require('../../models/profileSchema');
 const PREFIX = process.env.PREFIX;
 
 module.exports = async (Discord, client, message) => {
-    // Personal preference, just shows every message in the terminal 
-    // with some colors.
-    console.log("\n-----------------------------");
-    console.log(`User: \x1b[35m${message.author.username}`, "\x1b[0m");
-    console.log(`Server: ${message.guild.name}`);
-    console.log(`Channel: ${message.channel.name}`);
-    console.log(`Message: \x1b[36m"${message.content}"`, "\x1b[0m");
-    console.log("-----------------------------");
-
     // Normal messages with no prefix will run these
-
     if (message.content === 'wtf')
         return message.channel.send('https://tenor.com/view/wtf-gif-14533740');
     else if (message.author.id === '159985870458322944')
         return message.channel.send('Stfu I\'m cooler than you');
-
-    // End of funny stuff
 
     if (!message.content.startsWith(PREFIX) || message.author.bot) return;
 
