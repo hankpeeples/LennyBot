@@ -6,6 +6,7 @@ module.exports = async (Discord, client, guildMember) => {
     // create user DB profile
     let profile = await profileModel.create({
         userID: guildMember.id,
+        username: message.author.username,
         serverID: guildMember.guild.id,
         coins: 1000,
         bank: 0
