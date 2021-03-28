@@ -54,7 +54,9 @@ module.exports = {
                     `**» ${PRE}wd <amount> :** Withdraws amount from bank into your wallet.`,
                     `\u200b`,
                     `I set up a database for this system so all coins will still be in your account even if the bot shuts off. I might add some 'items' you can purchase with the coins soon since this is lowkey pointless without something to buy.`
-                ]);
+                ])
+                .setTimestamp(new Date())
+                .setFooter(`Help requested by ${message.author.username}`, message.author.avatarURL());
             message.channel.send(helpEcon);
         } else if (args[0] === 'suggest') {
             const helpSugg = new discord.MessageEmbed()
@@ -65,7 +67,9 @@ module.exports = {
                 .setThumbnail(client.user.avatarURL())
                 .addField('Suggest system usage:', [
                     `**» ${PRE}suggest <suggestion> :** Use this if you have an idea for a useful command I can add. \nIt will delete your message from whatever channel you typed it in and send an 'embed' (thats what this is) to the 'bot-suggestions' channel. \nIt will then add some reactions to the message so people can vote if they want the suggested command or not. \nAlthough there are no promises I can successefully make the command you want, sometimes I'm dumb.`
-                ]);
+                ])
+                .setTimestamp(new Date())
+                .setFooter(`Help requested by ${message.author.username}`, message.author.avatarURL());
             message.channel.send(helpSugg);
         }
     }
