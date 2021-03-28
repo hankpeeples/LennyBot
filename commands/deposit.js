@@ -19,7 +19,7 @@ module.exports = {
                     bank: amount
                 }
             });
-            return message.reply(`Successefully deposited **₿${amount} coins** to your bank!`);
+            return message.reply(`Successefully deposited **₿${amount.toLocaleString()} coins** to your bank!`);
         } catch (err) {
             console.log(err);
         }

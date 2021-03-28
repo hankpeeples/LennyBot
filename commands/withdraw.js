@@ -19,7 +19,7 @@ module.exports = {
                     bank: -amount
                 }
             });
-            return message.reply(`Successefully withdrew **₿${amount} coins** to your wallet!`);
+            return message.reply(`Successefully withdrew **₿${amount.toLocaleString()} coins** to your wallet!`);
         } catch (err) {
             console.log(err);
         }
