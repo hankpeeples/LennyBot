@@ -52,7 +52,8 @@ module.exports = async (Discord, client, message) => {
     if (command === undefined) {
         const notCommand = new Discord.MessageEmbed()
             .setColor('RED')
-            .addField('(╯°□°）╯︵ ┻━┻', `:exclamation: \`${PREFIX}${cmd}\` is not a command! Use \`${PREFIX}help\` for avaliable commands!`);
+            .setTitle('(╯°□°）╯︵ ┻━┻')
+            .setDescription(`:exclamation: \`${PREFIX}${cmd}\` is not a command! Use \`${PREFIX}help\` for avaliable commands!`);
         return message.channel.send(notCommand);
     }
 
