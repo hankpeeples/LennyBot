@@ -13,8 +13,8 @@ module.exports = async (Discord, client, guildMember) => {
     });
     profile.save();
     // welcome role/message
-    let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'test');
-    guildMember.roles.add(welcomeRole);
-    guildMember.guild.channels.cache.get('706588663747969107').send(`Welcome <@${guildMember.user.id}>! For a list of my commands type **${PREFIX}help**!`);
+    // let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'test');
+    // guildMember.roles.add(welcomeRole);
+    guildMember.guild.channels.cache.get('623292331214372886').send(`Welcome <@${guildMember.user.id}>! For a list of my commands type **${PREFIX}help** !`);
 
 }

@@ -13,7 +13,8 @@ module.exports = (Discord, client) => {
             "with griffen :(",
             "with gabriel :|",
             "with henry :P",
-            "with lenny (ツ)"
+            "with lenny (ツ)",
+            "with hunter ᕕ( ᐛ )ᕗ"
         ];
         let randomStatus = status[Math.floor(Math.random() * status.length)];
         client.user.setActivity(randomStatus, {
