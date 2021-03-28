@@ -106,7 +106,7 @@ module.exports = async (Discord, client, message) => {
     }
 
     try {
-        if (command) command.run(client, args, cmd, message, Discord);
+        if (command) command.run(client, args, cmd, message, Discord, profileData);
     } catch (err) {
         message.reply('There was an error trying to execute the command!');
         console.log(err);
