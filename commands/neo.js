@@ -22,19 +22,22 @@ module.exports = {
         }).then(data => {
             var neo = data.near_earth_objects[Object.keys(data.near_earth_objects)[0]];
             var count = 0;
-            var pot_haz = 2;
+            var potHaz = 2;
             // search for potentially hazardous == true
             for (var i = 0; i < data.element_count; i++) {
                 if (neo[i].is_potentially_hazardous_asteroid) {
-                    pot_haz = i;
+                    potHaz = i;
                     count++;
                     console.log('Found a potentially hazardous asteroid!');
                 }
             }
+            if (potHaz === 0 || potHaz === 1) {
+                potHaz = 2;
+            }
             // round to 2 decimal places
             const neoD1 = Math.round(neo[0].close_approach_data[0].miss_distance.miles * 100) / 100;
             const neoD2 = Math.round(neo[1].close_approach_data[0].miss_distance.miles * 100) / 100;
-            const neoD3 = Math.round(neo[pot_haz].close_approach_data[0].miss_distance.miles * 100) / 100;
+            const neoD3 = Math.round(neo[potHaz].close_approach_data[0].miss_distance.miles * 100) / 100;
             // embed
             const neoEmbed = new MessageEmbed()
                 .setColor('BLUE')
@@ -46,9 +49,9 @@ module.exports = {
                 .addField('Asteroid Name', neo[1].name, true)
                 .addField('Distance from Earth (miles)', neoD2, true)
                 .addField('Potentially Hazardous', neo[1].is_potentially_hazardous_asteroid, true)
-                .addField('Asteroid Name', neo[pot_haz].name, true)
+                .addField('Asteroid Name', neo[potHaz].name, true)
                 .addField('Distance from Earth (miles)', neoD3, true)
-                .addField('Potentially Hazardous', neo[pot_haz].is_potentially_hazardous_asteroid, true)
+                .addField('Potentially Hazardous', neo[potHaz].is_potentially_hazardous_asteroid, true)
                 .setTimestamp(new Date())
                 .setFooter("© Timmy's Brain", "https://cdn.discordapp.com/avatars/595507806782619658/270520317e83454379f18cea01fa76bc.png?size=2048");
             message.channel.send(neoEmbed);
