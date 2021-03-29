@@ -19,6 +19,7 @@ module.exports = {
                 `**» Creation Date:** ${utc(client.user.createdTimestamp).format('Do MMMM YYYY HH:mm:ss')}`,
                 `**» Creator:** <@595507806782619658>`,
                 `**» Status:** ${client.user.presence.status}`,
+                `**» Code:** [Link](https://github.com/hankpeeples/LennyBot)`,
                 `\u200b`
             ])
             .setTimestamp(new Date())
