@@ -7,7 +7,7 @@ module.exports = async (Discord, client, message) => {
     if (message.content === 'wtf')
         return message.channel.send('https://tenor.com/view/wtf-gif-14533740');
     else if (message.author.id === '159985870458322944')
-        return message.channel.send('Stfu I\'m cooler than you');
+        return message.channel.send('Stfu dick bot');
 
     if (!message.content.startsWith(PREFIX) || message.author.bot) return;
 
