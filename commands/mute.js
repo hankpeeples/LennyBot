@@ -4,7 +4,7 @@ module.exports = {
     permissions: ['MANAGE_ROLES', 'ADMINISTRATOR'],
     description: 'Mute members',
     async run(client, args, cmd, message, discord) {
-        if (!message.guild.me.hasPermission(['MANAGE_ROLES', 'KICK_MEMBERS'])) return message.channel.send(`I don't have the right permissions!`);
+        if (!message.guild.me.hasPermission(['MANAGE_ROLES', 'ADMINISTRATOR'])) return message.channel.send(`I don't have the right permissions!`);
         var toMute = message.mentions.members.first();
         if (!toMute) return message.channel.send('Supply a user to be muted!');
         var reason = args.slice(1).join(' ');
