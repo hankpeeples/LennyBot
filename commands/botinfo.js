@@ -26,7 +26,7 @@ module.exports = {
                 `**${bP} Creator:** <@595507806782619658>`,
                 `**${bP} Status:** ${client.user.presence.status}`,
                 `\u200b`,
-                `**${bP} Code:** [Link](${package.repository.url})`,
+                `**${bP} Code:** [Link](https://github.com/hankpeeples/LennyBot)`,
                 `**${bP} Version:** v${package.version}`,
                 `**${bP} Node.js:** v${package.engines.node}`,
                 `**${bP} Discord.js:** v${package.dependencies['discord.js']}`,
