@@ -78,7 +78,20 @@ module.exports = async (Discord, client, message) => {
         "MANAGE_ROLES",
         "MANAGE_WEBHOOKS",
         "MANAGE_EMOJIS",
-    ]
+    ];
+
+    // randomly select bullet point for embeds
+    const bulletPoints = [
+        "»",
+        "⁍",
+        "‣",
+        "◦ ",
+        "•",
+        "៛",
+        "×"
+    ];
+
+    let bP = bulletPoints[Math.floor(Math.random() * bulletPoints.length)];
 
     if (command.permissions.length) {
         let invalidPerms = []
@@ -96,7 +109,7 @@ module.exports = async (Discord, client, message) => {
     }
 
     try {
-        if (command) command.run(client, args, cmd, message, Discord, profileData);
+        if (command) command.run(client, args, cmd, message, Discord, bP, profileData);
     } catch (err) {
         message.reply('There was an error trying to execute that command! Try again?');
         console.log(err);

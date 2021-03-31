@@ -5,7 +5,7 @@ module.exports = {
     aliases: ['flip', 'cf'],
     permissions: [],
     description: 'Gamble your coins with a coin flip',
-    async run(client, args, cmd, message, Discord, profileData) {
+    async run(client, args, cmd, message, discord, bP, profileData) {
         const coinPick = args[0].toUpperCase();
         const amount = args[1];
         const amountDoubled = amount * 2;
@@ -26,7 +26,7 @@ module.exports = {
                         coins: amountDoubled
                     }
                 });
-                const win = new Discord.MessageEmbed()
+                const win = new discord.MessageEmbed()
                     .setColor('GREEN')
                     .setAuthor(`${message.author.username}'s coin flip`, message.author.avatarURL())
                     .setDescription(`Your bet: **₿${amount}** on **${coinPick}**
@@ -41,7 +41,7 @@ module.exports = {
                         coins: -amount
                     }
                 });
-                const lose = new Discord.MessageEmbed()
+                const lose = new discord.MessageEmbed()
                     .setColor('GREEN')
                     .setAuthor(`${message.author.username}'s coin flip`, message.author.avatarURL())
                     .setDescription(`Your bet: **₿${amount}** on **${coinPick}**

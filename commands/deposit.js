@@ -5,7 +5,7 @@ module.exports = {
     aliases: ['dep'],
     permissions: [],
     description: 'Deposit coins into your bank',
-    async run(client, args, cmd, message, Discord, profileData) {
+    async run(client, args, cmd, message, Discord, bP, profileData) {
         const amount = args[0];
         // make sure args isnt floating point num or negative
         if (amount % 1 != 0 || amount <= 0) return message.reply('Deposit amount must be a whole number!');

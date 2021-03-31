@@ -1,8 +1,5 @@
 require('dotenv').config();
 const fetch = require('node-fetch');
-const {
-    MessageEmbed
-} = require('discord.js');
 const NASA_API = process.env.NASA_API;
 
 module.exports = {
@@ -10,11 +7,11 @@ module.exports = {
     aliases: ['apod'],
     permissions: [],
     description: "Show the Astronomy Picture of the Day from NASA API",
-    async run(client, args, cmd, message) {
+    async run(client, args, cmd, message, discord) {
         fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API}`).then(res => {
             return res.json();
         }).then(apod => {
-            const apodEmbed = new MessageEmbed()
+            const apodEmbed = new discord.MessageEmbed()
                 .setColor('BLUE')
                 .setTitle('🚀 NASA Astronomy Picture of the Day 📷')
                 .setDescription(`${apod.date} \n **${apod.title}**`)

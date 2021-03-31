@@ -3,8 +3,8 @@ module.exports = {
     aliases: ['bal'],
     permissions: [],
     description: 'Check user balance',
-    run(client, args, cmd, message, Discord, profileData) {
-        const bal = new Discord.MessageEmbed()
+    run(client, args, cmd, message, discord, bP, profileData) {
+        const bal = new discord.MessageEmbed()
             .setColor('GREEN')
             .setAuthor(`${message.author.username}'s balance`, message.author.avatarURL())
             .setDescription(`Wallet: **₿${profileData.coins.toLocaleString()}**\nBank: **₿${profileData.bank.toLocaleString()}**`);

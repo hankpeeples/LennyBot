@@ -5,7 +5,7 @@ module.exports = {
     aliases: [],
     permissions: [],
     description: 'Beg for coins',
-    async run(client, args, cmd, message, Discord, profileData) {
+    async run(client, args, cmd, message, Discord, bP, profileData) {
         const randomNumber = Math.floor(Math.random() * 500) + 1;
         const response = await profileModel.findOneAndUpdate({
             userID: message.author.id
