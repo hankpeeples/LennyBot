@@ -22,7 +22,7 @@
     "fs": "0.0.1-security",
     "insult-compliment": "^1.1.4",
     "memejs": "^2.0.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "mongoose": "^5.12.2",
     "ms": "^2.1.3",
     "node-fetch": "^2.6.7",
